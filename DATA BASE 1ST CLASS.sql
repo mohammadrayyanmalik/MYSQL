@@ -1,5 +1,5 @@
 -- To create database
-CREATE DATABASE mohammad_rayyan; 
+CREATE DATABASE mohammad_rayyan;
 
 -- To see all databases
 SHOW DATABASES;
@@ -160,4 +160,73 @@ INSERT INTO computer_type (computer_id,computer_name, compUter_capacity) VALUES 
     ("23","LENOVO","256GB");
     SELECT * FROM computer_type;
 
+SHOW TABLES;
 
+ALTER TABLE computer_type MODIFY computer_name VARCHAR(50);   
+
+
+drop table computer_type;        
+CREATE TABLE department(
+Department_id INT UNIQUE NOT NULL,
+department_name VARCHAR(60) NOT NULL
+);
+
+
+SHOW TABLES;
+
+INSERT INTO department values (101,"qasim");
+
+DESC department;
+SELECT * FROM department;
+INSERT INTO department VALUE (NULL,"RAYYAN");
+INSERT INTO department VALUES (103,NULL);
+
+drop table department;
+SELECT * FROM department; 
+
+
+CREATE TABLE faizan(
+faizan_id char(2) PRIMARY KEY,
+faizan_name VARCHAR(60) NOT NULL,
+email_id VARCHAR(90) UNIQUE NOT NULL
+);
+
+DESC faizan;
+
+INSERT INTO faizan (faizan_id,email_id) VALUES ("01",RAYYAN111);
+
+
+
+
+-- to add not null constraint
+-- ALTER TABLE <table name> MODIFY <COL-NAME> <DATA-TYPE> ; 
+-- TO REMOVE NOT NULL
+-- ALTER TABLE <table name> MODIFY <COL-NAME> <DATA-TYPE> ; 
+
+ALTER TABLE faizan MODIFY faizan_name VARCHAR (60) not null;
+DESC faizan;
+
+ALTER TABLE faizan MODIFY faizan_name varchar(80);
+
+
+ALTER TABLE faizan DROP INDEX email_id;
+ALTER TABLE faizan ADD UNIQUE (EMAIL_ID);
+
+
+ALTER TABLE faizan DROP primary key;
+DESC FAIZAN;
+
+ALTER TABLE faizan ADD PRIMARY KEY(faizan_id);
+
+
+alter table faizan ADD COLUMN FAIZAN_SALARY Int ;
+DESC faizan;
+
+ALTER TABLE faizan ALTER faizan_salary SET DEFAULT (100);
+desc faizan;
+insert into faizan (faizan_id,faizan_name,email_id) VALUES
+("E2","hi","n@GAIL");
+insert into faizan (faizan_id,faizan_name,email_id,FAIZAN_SALARY) VALUES
+("E3","hi","@GAIL", 50000);
+
+SELECT * FROM FAIZAN;
