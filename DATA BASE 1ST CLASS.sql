@@ -36,7 +36,7 @@ phone_no INT
 
 -- desc (describe tables detials)
 DESC employee;
-
+drop table student;
 
 -- ALTER used for edit in existing table either add or delete
 -- ALTER TABLE < table_name> ADD COLUMN <column_name> <data_type>
@@ -143,7 +143,8 @@ INSERT INTO employe (emplyee_id, employee_name) VALUES
 (25,"IMRAN"),
 (24,"NISAR");
 
-
+show databases;
+use tata_compamy;
 CREATE TABLE computer_type(
 computer_id char(8),
 computer_name varchar(70),
@@ -244,6 +245,17 @@ insert into faizan values ("q1","dd","@bbb","12","2002-01-01 00:00:10");
 ALTER TABLE FAIZAN DROP CONSTRAINT CHECK_SALARY;
 INSERT INTO faizan VALUES ("SS","DS","100@","-20","2002-01-01 01:01:20"); 
 SELECT *FROM FAIZAN;
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE category(
 c_id int primary key,
 name_ varchar(30 )not null
@@ -255,14 +267,67 @@ p_id INT primary KEY,
 P_NAME VARCHAR(60) NOT NULL,
 P_PRICE INT DEFAULT 0 CHECK (P_PRICE>=0),
 C_ID INT,
+-- constraint <constraint name > foreign key <column name> reference <where table name><column name>
 CONSTRAINT CATEGORY_PRODUCT FOREIGN KEY (C_ID)
 REFERENCES CATEGORY (C_ID)
 );
-
-
+select *from category;
+select * from product; 
 DESC product;
 DESC CATEGORY;
 INSERT INTO category values (1,"laptop");
 INSERT INTO PRODUCT (P_ID, p_name, p_price,c_id)VALUES (13,"ZARA","1000",1);
 
-select * from product; 
+ALTER TABLE product drop foreign key CATEGORY_PRODUCT;
+
+INSERT INTO PRODUCT VALUES (111,"brand","10000",1000);
+insert into category VALUES (1000,"clothes");
+
+
+
+
+
+
+CREATE TABLE school(
+s_id int primary key,
+s_name varchar (30)
+);
+
+CREATE TABLE student(
+roll_no int primary key,
+st_name varchar (40) not null,
+phone_no bigint,
+s_id int,
+constraint student_school foreign key (s_id)
+references school (s_id)
+);
+
+INSERT INTO school values (11,"amit");
+INSERT INTO student values (22,"mishra",9322018,11);
+
+select * from school;
+select *from student;
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE TEACHER (
+teacher_id int primary key,
+teacher_name VARCHAR (50) NOT NULL
+);
+
+CREATE TABLE COURSES(
+c_id char(11) primary key,
+c_name varchar (50) not null,
+teacher_id int,
+CONSTRAINT teacher_courses FOREIGN KEY (teacher_id)
+REFERENCES teacher (teacher_id)
+);
+desc courses;
