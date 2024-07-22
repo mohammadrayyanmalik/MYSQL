@@ -228,5 +228,41 @@ insert into faizan (faizan_id,faizan_name,email_id) VALUES
 ("E2","hi","n@GAIL");
 insert into faizan (faizan_id,faizan_name,email_id,FAIZAN_SALARY) VALUES
 ("E3","hi","@GAIL", 50000);
+ALTER TABLE faizan ADD COLUMN addmission_date datetime;
 
-SELECT * FROM FAIZAN;
+DESC faizan;
+select * FROm faizan;
+
+-- ALTER TABLE <TABLE_NAME> ADD CONSTRAINT <CONSTRAINT_NAME> CHECK (CONDITION);
+ALTER TABLE faizan ADD CONSTRAINT CHECK_SALARY CHECK (faizan_salary>=0);
+insert into faizan values ("w1","gg","@aaaa","10","2001-01-01 10:10:10");
+
+ALTER TABLE faizan ADD CONSTRAINT check_salary check (faizan_salary>100);
+insert into faizan values ("q1","dd","@bbb","12","2002-01-01 00:00:10");
+
+-- ALTER TABLE <TABLE_ NAME> DROP CONSTRAINT <CONSTRAIT_NAME>;
+ALTER TABLE FAIZAN DROP CONSTRAINT CHECK_SALARY;
+INSERT INTO faizan VALUES ("SS","DS","100@","-20","2002-01-01 01:01:20"); 
+SELECT *FROM FAIZAN;
+CREATE TABLE category(
+c_id int primary key,
+name_ varchar(30 )not null
+);
+desc category;
+
+CREATE TABLE product (
+p_id INT primary KEY,
+P_NAME VARCHAR(60) NOT NULL,
+P_PRICE INT DEFAULT 0 CHECK (P_PRICE>=0),
+C_ID INT,
+CONSTRAINT CATEGORY_PRODUCT FOREIGN KEY (C_ID)
+REFERENCES CATEGORY (C_ID)
+);
+
+
+DESC product;
+DESC CATEGORY;
+INSERT INTO category values (1,"laptop");
+INSERT INTO PRODUCT (P_ID, p_name, p_price,c_id)VALUES (13,"ZARA","1000",1);
+
+select * from product; 
