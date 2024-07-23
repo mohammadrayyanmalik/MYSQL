@@ -272,17 +272,95 @@ CONSTRAINT CATEGORY_PRODUCT FOREIGN KEY (C_ID)
 REFERENCES CATEGORY (C_ID)
 );
 select *from category;
-select * from product; 
+select * from product;
+ 
 DESC product;
 DESC CATEGORY;
 INSERT INTO category values (1,"laptop");
 INSERT INTO PRODUCT (P_ID, p_name, p_price,c_id)VALUES (13,"ZARA","1000",1);
 
+
+--
+select (100>89);
+select (100>101);
+select (100<=77);
+select (100<100);
+select  (100<=89)  ;
+select (-10<10);
+
+-- and (all statement should be true)
+select (1000>100 and 55<110 and 33!=1000);
+select (100=100 and 22>1);
+
+
+-- or (atlast one statement needs to be true)
+select (100>10 or 100=10);
+
+
+-- not after select can change the statement if true it can false
+select not (0=1 or 100<10);
+
+
+
+CREATE TABLE department(
+D_id CHAR (20) PRIMARY KEY,
+derpartment VARCHAR (100) NOT NULL
+);
+drop table department;
+CREATE TABLE employee (
+E_id CHAR(20) PRIMARY KEY,
+ename VARCHAR (20) NOT NULL,
+city varchar (30),
+salary int,
+department char (20),
+CONSTRAINT EMPLOYEE_DEPARTMENT FOREIGN KEY (department)
+REFERENCES department (D_id)
+);
+
+
+INSERT INTO department VALUES ("D1","MARKETING"),
+("D2","IT"),
+("D3","human resourses");
+
+
+INSERT INTO employee VALUES ("E1","nikita","mumbai",67000,"D1"),
+("E2","prajakta","pune",80000,"D1"),
+("E3","manisha","banglore",20000,"D2"),
+("E4","nilesh","mumbai",35400,"D3"),
+("E5","monal","pune",34452,"D2");
+select * from employee;
+select * from  department;
+
+
+
+-- select <column name,.....> from <table_name>
+SELECT e_id from employee;
+
+DESC employee;
+select e_id,salary FROM employee;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- ALTER TABLE <TABLE_NAME> DROP FOREIGN KEY <CONSTAINT NAME>
 ALTER TABLE product drop foreign key CATEGORY_PRODUCT;
 
-INSERT INTO PRODUCT VALUES (111,"brand","10000",1000);
+INSERT INTO PRODUCT VALUES (121,"shirt","10000",11);
 insert into category VALUES (1000,"clothes");
 
+ALTER TABLE product ADD CONSTRAINT category_product foreign key
+(c_id) REFERENCES category (c_id);
 
 
 
@@ -331,3 +409,9 @@ CONSTRAINT teacher_courses FOREIGN KEY (teacher_id)
 REFERENCES teacher (teacher_id)
 );
 desc courses;
+
+
+
+
+
+
