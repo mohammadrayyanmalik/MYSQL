@@ -339,6 +339,64 @@ SELECT e_id from employee;
 DESC employee;
 select e_id,salary FROM employee;
 
+SELECT e_id as id, salary from employee;
+SELECT (18<12) AS submit;
+select (100>=10) as submit;
+-- -------------------------------------------------------------------------------------------------------
+-- WHERE clause
+SELECT * FROM employee WHERE e_id="E1"; 
+SELECT ename FROM employee WHERE e_id="E1"; 
+SELECT department FROM employee WHERE e_id="E1"; 
+select * FROM department;
+select *from employee;
+ select * from employee WHERE city="mumbai";
+ 
+ 
+select *from employee where salary<50000;
+select *from employee where salary<=20000;
+
+SELECT * FROM employee WHERE city="mumbai" AND salary<70000;
+SELECT * FROM employee WHERE city ="mumbai" or city="banglore";
+SELECT * FROM employee WHERE salary between 20000 and 40000;
+SELECT * FROM employee WHERE salary>=20000 and salary<=40000;
+SELECT * FROM employee WHERE  department="D1" and salary<20000;
+select * from employee where city="pune" and department="d1";
+SELECT * FROM employee WHERE e_id IN("E1","E2","E3"); 
+SELECT * FROM employee WHERE e_id IN("E1","E2","E3"); 
+SELECT * FROM employee WHERE city IN ("mumbai","pune","banglore");
+SELECT * FROM employee WHERE salary BETWEEN 33000 AND 50000;
+ ALTER TABLE employee ADD COLUMN age INT;
+ 
+-- --------------------------------------------------------------------------------------
+-- for update <table_name> SET <column-name and value> where condition
+UPDATE employee SET age=0;
+UPDATE employee SET age=25 WHERE e_id IN ("E1","E4","E4") ;
+UPDATE employee SET age=25  WHERE e_id IN ("E1","E4","E4") ;
+UPDATE employee set city="pune" where ename="nikita";
+UPDATE employee set city="mumbai" where ename="prajakta";
+UPDATE employee set salary="39452" where ename="monal";
+UPDATE employee set salary=salary+34352 where ename="monal";
+UPDATE employee SET AGE=AGE+20;
+UPDATE employee set salary=salary-2000 where department="d1";
+
+UPDATE employee set city=null where e_id IN("E1","E3");
+update employee set ename="nikita" where e_id IN ("E1");
+update employee set ename="prajakta" where e_id IN ("E2");
+
+-- we we compare null we used <is null>
+select * from employee where city is null;
+select * from employee where city is  not null;
+select * from employee where ename<>"nikita";
+select *from employee;
+desc employee;
+alter table employee modify ename 
+
+
+
+
+
+
+
 
 
 
