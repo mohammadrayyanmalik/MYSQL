@@ -323,11 +323,11 @@ INSERT INTO department VALUES ("D1","MARKETING"),
 ("D3","human resourses");
 
 
-INSERT INTO employee VALUES ("E1","nikita","mumbai",67000,"D1"),
-("E2","prajakta","pune",80000,"D1"),
-("E3","manisha","banglore",20000,"D2"),
-("E4","nilesh","mumbai",35400,"D3"),
-("E5","monal","pune",34452,"D2");
+INSERT INTO employee VALUES ("E1","nikita","mumbai",67000,"D1",23),
+("E2","prajakta","pune",80000,"D1",25),
+("E3","manisha","banglore",20000,"D2",33),
+("E4","nilesh","mumbai",35400,"D3",24),
+("E5","monal","pune",34452,"D2",22);
 select * from employee;
 select * from  department;
 
@@ -389,21 +389,83 @@ select * from employee where city is  not null;
 select * from employee where ename<>"nikita";
 select *from employee;
 desc employee;
-alter table employee modify ename 
+alter table employee modify ename VARCHAR(20);
+
+
+
+-- 25-7-2024-----------------------------------------------------------------------
+select * from employee WHERE ename LIKE "N%";
+ select * from employee WHERE ename LIKE "n%a";
+select * from employee WHERE ename not LIKE "m_n%";
+ select * from employee WHERE ename LIKE "%n%";
+ select * from employee WHERE ename NOT LIKE "m%";
+ select * from employee WHERE ename LIKE "%ta";
+  select * from employee WHERE city="pune" and ename LIKE "m%";
+ select * from employee WHERE ename LIKE "%t_";
+
+
+
+-- DELETE FROM <TABLE_NAME> WHERE <CONDITION>;
+DELETE FROM employee WHERE e_id="E4"; 
+DELETE FROM employee WHERE department="D1" and age<26;
+DELETE FROM employee WHERE ename LIKE "%L";
+DELETE FROM employee;
 
 
 
 
+-- TRUNCATE TABLE <table-name>;
+TRUNCATE TABLE employee;
+
+
+
+-- Aggregat functions
+-- sum
+-- count
+-- min
+-- max
+-- average 
+
+
+
+SELECT COUNT(*) FROM employee;
+SELECT COUNT(*) AS number_of_employee from department;
+SELECT COUNT(*) AS number_of_department from department;
+SELECT COUNT(CITY) FROM employee;
+SELECT count(DISTINCT department) FROM employee;
+SELECT min(salary) from employee;
+SELECT min(age) FROM employee;
+SELECT max(salary)FROM employee;
+SELECT sum(salary) from employee;
+SELECT sum(salary*12) from employee;
+select * from employee;
+
+
+-- select avg(column_name) FROM emplyee
+select avg(salary) FROM employee;
+select avg(age) FROM employee;
+
+
+-- SELECT DISTINCT city FROM <TABLE_NAME>
+ SELECT DISTINCT city FROM employee;
+ SELECT count(DISTINCT CITY) FROM employee;
+ 
+ -- to oarganize the data into ascending order (LOW TO HIGH)
+ SELECT * FROM EMPLOYEE ORDER BY salary;
+SELECT * FROM EMPLOYEE ORDER BY ename ;
+ 
+  -- SELECT * FROM EMPLOYEE ORDER BY salary DESC
+  SELECT * FROM EMPLOYEE ORDER BY salary DESC;
+   SELECT * FROM EMPLOYEE ORDER BY AGE DESC;
+   SELECT * FROM EMPLOYEE ORDER BY ename desc;
+   SELECT * FROM employee ORDER BY salary desc,age desc;
+select * from employee;
 
 
 
 
-
-
-
-
-
-
+INSERT INTO employee values ("E6","nisha",null,62300,"D1",24);
+UPDATE employee set salary=80000 where ename="nikita";
 
 
 
