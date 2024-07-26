@@ -301,7 +301,7 @@ select (100>10 or 100=10);
 select not (0=1 or 100<10);
 
 
-
+-- 23-7-2024-------------------------------------------------------------------------------------------
 CREATE TABLE department(
 D_id CHAR (20) PRIMARY KEY,
 derpartment VARCHAR (100) NOT NULL
