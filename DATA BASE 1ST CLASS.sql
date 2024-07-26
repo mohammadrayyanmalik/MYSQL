@@ -463,75 +463,75 @@ select * from employee;
 
 
 
+-- 26-7-2024----------------------------------------------------------------------------------
 
-INSERT INTO employee values ("E6","nisha",null,62300,"D1",24);
-UPDATE employee set salary=80000 where ename="nikita";
+SELECT* FROM employee;
+select * from employee ORDER BY salary LIMIT 1;
+select * from employee
+ORDER BY 
+salary desc,
+age desc
+ limit 2;
+SELECT * FROM EMPLOYEE ORDER BY AGE DESC LIMIT 1;
+SELECT * FROM EMPLOYEE ORDER BY AGE LIMIT 1;
 
+-- -------------------------------------------------------------------------------------------------
 
+SELECT department, count(ename) from employee
+group by department;
+select city,count(e_id) from employee 
+GROUP BY city having city="mumbia";
 
-
-
-
-
--- ALTER TABLE <TABLE_NAME> DROP FOREIGN KEY <CONSTAINT NAME>
-ALTER TABLE product drop foreign key CATEGORY_PRODUCT;
-
-INSERT INTO PRODUCT VALUES (121,"shirt","10000",11);
-insert into category VALUES (1000,"clothes");
-
-ALTER TABLE product ADD CONSTRAINT category_product foreign key
-(c_id) REFERENCES category (c_id);
-
-
-
-
-
-CREATE TABLE school(
-s_id int primary key,
-s_name varchar (30)
-);
-
-CREATE TABLE student(
-roll_no int primary key,
-st_name varchar (40) not null,
-phone_no bigint,
-s_id int,
-constraint student_school foreign key (s_id)
-references school (s_id)
-);
-
-INSERT INTO school values (11,"amit");
-INSERT INTO student values (22,"mishra",9322018,11);
-
-select * from school;
-select *from student;
+SELECT city, SUM(salary),avg(salary),min(salary),max(salary) from employee 
+group by city;
 
 
 
+-- as is called allias;
+select department,
+ sum(salary) as sum,
+ avg(salary) as avg,
+ min(salary) as min,
+ max(salary) as max,
+ count(e_id) as id
+ from employee
+group by department;
 
 
+alter table employee ADD COLUMN gender char(25);
+update employee set gender="F";
+update employee set gender="M" where e_id="e4";
+
+select gender, count(e_id) as count_of_employees
+ from employee
+group by gender
+HAVING gender="F";
+
+select gender, count(e_id)  from employee 
+where salary>50000
+group by gender HAVING gender="f";
 
 
+select department, avg(salary) as average_salary from employee 
+group by department having average_salary<"50000";
 
 
+select department, avg(salary) as lowest_avg_salary 
+FROM employee 
+group by department
+order by lowest_avg_salary desc;
+
+ select department, count(e_id) from employee
+group by department 
+order by count(e_id)  limit 1;
 
 
-CREATE TABLE TEACHER (
-teacher_id int primary key,
-teacher_name VARCHAR (50) NOT NULL
-);
-
-CREATE TABLE COURSES(
-c_id char(11) primary key,
-c_name varchar (50) not null,
-teacher_id int,
-CONSTRAINT teacher_courses FOREIGN KEY (teacher_id)
-REFERENCES teacher (teacher_id)
-);
-desc courses;
-
-
+select department, sum(salary)from employee
+group by department
+order by sum(salary) limit 1;
 
 
 
 
+
+SELECT * FROM employee;
