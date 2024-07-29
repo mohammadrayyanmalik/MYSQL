@@ -306,7 +306,17 @@ CREATE TABLE department(
 D_id CHAR (20) PRIMARY KEY,
 derpartment VARCHAR (100) NOT NULL
 );
-drop table department;
+CREATE TABLE employee (
+E_id CHAR(20) PRIMARY KEY,
+ename VARCHAR (20) NOT NULL,
+city varchar (30),
+salary int,
+department char (20),
+age int,
+CONSTRAINT EMPLOYEE_DEPARTMENT FOREIGN KEY (department)
+REFERENCES department (D_id)
+);
+drop table employee;
 CREATE TABLE employee (
 E_id CHAR(20) PRIMARY KEY,
 ename VARCHAR (20) NOT NULL,
@@ -328,6 +338,7 @@ INSERT INTO employee VALUES ("E1","nikita","mumbai",67000,"D1",23),
 ("E3","manisha","banglore",20000,"D2",33),
 ("E4","nilesh","mumbai",35400,"D3",24),
 ("E5","monal","pune",34452,"D2",22);
+desc employee;
 select * from employee;
 select * from  department;
 
@@ -522,8 +533,9 @@ group by department
 order by lowest_avg_salary desc;
 
  select department, count(e_id) from employee
-group by department 
-order by count(e_id)  limit 1;
+group by department
+order by count(e_id) limit 1 ;
+
 
 
 select department, sum(salary)from employee
@@ -531,7 +543,40 @@ group by department
 order by sum(salary) limit 1;
 
 
+-- 29-7-2024 ---------------------------------------------------------------------------------------------
+
+-- built in function
+-- concat ("hello","world");
+select concat("mohammad"," ","Rayyan");
+select ename,city,concat(ename,"-",city) as combination from employee;
+select ename,e_id,concat(e_id,".",ename,"@itvedant.com") as email 
+from employee;
+
+-- UPPER ("sql") SQL
+SELECT UPPER("abc");
+SELECT LOWER("QAS");
+
+INSERT INTO employee VALUES ("E7","ANKITA",upper("mumbai"),20000,"d1",12,lower("f"));
 
 
+-- length
+SELECT length("HELLO     ");
+select length("nisha")>4;
+
+select substr("hello",2,4);
+select substr("hello",2,2);
+SELECT substr("NIKITA",length("NIKITA"),1);
+SELECT substr("ename",length("ename"),1) from employee;
+select upper( substr(ename,length(ename),1)) from employee ;
+select concat(ename,"-",upper( substr(ename,length(ename),1))) from employee;
+
+select concat(upper( substr(ename,1,1)),
+substr(ename,2,length(ename)-1))from employee;
+
+
+select concat(upper(substr(ename,1,1)),
+substr(ename,2,length(ename)-2),
+upper(substr(ename,length(ename),1))) 
+ from employee;
 
 SELECT * FROM employee;
