@@ -579,4 +579,70 @@ substr(ename,2,length(ename)-2),
 upper(substr(ename,length(ename),1))) 
  from employee;
 
+
+-- 30-7-2024-----------------------------------------------------------------------
+-- mod(modulus) it defines remender on devide
+-- round (it round the figure after point)
+-- CEIL it round the main figure i high number
+-- FLOOR IT also rouun the figure in less number
+-- sqrt it give squre root
+-- sign it give + and - value with only no. (1)
+-- truncate cut number that give values
+-- pow it gite squre type multiplication
+-- "now" give both date and time yyyy-mm-dd hh:m:ss (format)
+-- date give only date part in now part
+
+select mod(101,3);
+select round(8.326,1);
+select ceil(10.1);
+select floor(20000.155555);
+select round(sqrt(17),4);
+select sign(-40);
+select truncate(sqrt(53),3);
+select pow(50,2);
+-- -----------------------------------------------------------
+-- practice 
+select ceil(avg(salary)) as average_salary from employee;
+
+-- date related function
+-- yyyy-mm-dd (format)
+select curdate();
+
+-- hh:mm:ss (format)
+select current_time();
+-- "now" give both date and time yyyy-mm-dd hh:m:ss (format)
+-- date give only date part in now part
+select  date(now());
+
+-- day give only date part
+select day(now());
+
+-- month give only monyh part
+select month(now());
+
+-- year give only year part
+select year(now());
+
+ALTER TABLE employee ADD COLUMN joining_date date;
+update employee set joining_date="2015-10-08" where e_id="e1";
+update employee set joining_date="2015-09-08" where e_id="e2";
+update employee set joining_date="2012-10-08" where e_id="e4";
+
+select joining_date from employee where year(joining_date)=2015;
+select * from employee where year(joining_date)=2015 or
+year(joining_date)=2020;
+
+select year(joining_date) as joining_date, count(e_id) from employee
+group by year(joining_date) having (joining_date)=2012;
+
+-- ----------------------------------------------------- ---------------------------------------
+
+select date_format("2020-10-10","%d-%m-%y");
+select date_format("2020-10-10","%D-%M-%Y");
+
+-- %w is a week number 0=SUNDAY 1=MONDAY
+select date_format("2020-10-10","%d-%m-%y %w");
+select date_format("2020-10-10","%D-%M-%Y %W");
+
+SELECT DATE_FORMAT(NOW(),"%D-%b-%Y %h:%i:%s");
 SELECT * FROM employee;
