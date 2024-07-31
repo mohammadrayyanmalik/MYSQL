@@ -643,6 +643,58 @@ select date_format("2020-10-10","%D-%M-%Y");
 -- %w is a week number 0=SUNDAY 1=MONDAY
 select date_format("2020-10-10","%d-%m-%y %w");
 select date_format("2020-10-10","%D-%M-%Y %W");
+ 
+ -- %c define only single digit month like if yo want august it represent 8 only excepy of 08
+SELECT DATE_FORMAT(NOW(),"%D-%c-%Y %h:%i:%s");
 
-SELECT DATE_FORMAT(NOW(),"%D-%b-%Y %h:%i:%s");
+-- %r define the hh:mm:ss toghether
+
+
+
+-- 31-7-2024----------------------------------------------------------------------------------
+SELECT ename,e_id,salary,
+CASE 
+WHEN SALARY<30000 THEN "very less"
+WHEN SALARY<60000 THEN "AVERAGE"
+WHEN salary>60000 THEN "HIGH"
+ELSE "-"
+END AS SALARY_DATA,
+CASE 
+WHEN department="D1" THEN "MARKETING"
+WHEN department="D2" THEN "IT"
+WHEN department="D3" THEN "HR"
+ELSE "-"
+END AS EMPLOYEE_DETIALS,CITY
+FROM employee;
+
+SELECt ename,e_id,salary,department,
+CASE 
+WHEN department="D1" THEN "MARKETING"
+WHEN department="D2" THEN "IT"
+WHEN department="D3" THEN "HR"
+ELSE "-"
+END AS EMPLOYEE_DETIALS,CITY
+FROM EMPLOYEE;
+
+UPDATE employee SET salary=
+CASE
+WHEN department="D1" THEN SALARY+2000
+WHEN department="D2" THEN SALARY+1000
+WHEN department="D3" THEN SALARY+2500
+ELSE "salary"
+END;
+
+alter table employee add column email varchar(90);
+
+update employee set email=
+concat(substr(city,1,1),".", upper(ename),"_",lower(e_id),"@itvedant.com");
+
+
+-- coalesce
+alter table employee add column phone_no bigint;
+update employee set phone_no=63001400,email=null where e_id in("e1","e3","e4");
+
+SELECT ENAME,email,phone_no,COALESCE(email,phone_no) from employee;
+
+
 SELECT * FROM employee;
