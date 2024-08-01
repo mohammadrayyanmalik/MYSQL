@@ -697,4 +697,54 @@ update employee set phone_no=63001400,email=null where e_id in("e1","e3","e4");
 SELECT ENAME,email,phone_no,COALESCE(email,phone_no) from employee;
 
 
+-- 01-08-2024 --------------------------------------------------------------------------------
+-- (IS NULL) check its null or not
+select isnull("AMIT");
+
+
+-- DATEDIFF define the difference date gap in number 
+SELECT datediff(curdate(),"2001-08-01");
+
+select ename,joining_date,datediff(curdate(),joining_date) 
+from employee
+ where datediff(curdate(),
+ joining_date)>(365*8) ;
+
+
+
+-- DATE-ADD 
+select date_add(curdate(),interval 84 day);
+select date_add(curdate(),interval -1 year);
+select date_add(curdate(),interval 10 year);
+
+
+-- CLASS TASK
+select ename,joining_date,date_add(joining_date,interval 1 year) as work_annivarsry
+from employee;
+
+select *,
+date_add(joining_date,interval 1 year) as work_annivarsry
+from employee;
+
+-- ----------------------------------------------------------------------------------
+UPDATE employee SET department=null where e_id="e5";
+insert into department values("d4","operation");
+
+-- INNER JOIN
+SELECT * FROM employee
+inner join department
+on employee.department=department.d_id;
+
+select * from employee e 
+inner join department d
+on e.department=d.d_id;
+
+select e.ename,e.e_id,e.city,d.department from employee e 
+inner join department d
+on e.department=d.d_id;
+
+show tables;
+desc department;
 SELECT * FROM employee;
+SELECT * FROM department;
+ ALTER TABLE department change derpartment department varchar(100);
