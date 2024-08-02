@@ -745,6 +745,102 @@ on e.department=d.d_id;
 
 show tables;
 desc department;
+
+ ALTER TABLE department change derpartment department varchar(100);
+ 
+ 
+ -- 02-08-2024 ------------------------------------------------------------------------------------------------------
+ 
+-- left join 
+SELECT * from employee e
+left join  department d
+on e.department=d.D_id
+where salary<=50000
+order by e.salary desc;
+
+
+
+
+-- right join 
+select * from employee e 
+right join department d 
+on e.department=d.D_id
+where city="mumbai"
+group by e.department
+order by salary ;
+
+
+
+
+
+
+
+
+
+-- inner join 
+select * from employee e
+inner join department d
+on e.department=d.d_id;
+ 
+ 
+ select * from employee e
+right join department d
+on e.department=d.d_id
+where e.e_id is null;
+
+
+select d.d_id, count(e.e_id) AS no_of_employee from employee e
+right join department d
+on e.department=d.d_id
+GROUP BY d.d_id
+HAVING no_of_employee=0 ;
+
+
+-- CROSS JOIN(define the multiplicatin with second table)
+SELECT * FROM employee e,department d
+where e.department=d.D_id;
+
+
+SELECT * FROM employee e,department d
+where e.department=d.D_id AND E.DEPARTMENT="D1";
+
+create table department_2(
+d_id char(20) primary key,
+department VARCHAR(100),
+city varchar(100)
+);
+
+insert into department_2
+VALUES ("D1","MARKETING","MUMBAI"),
+("D6","PHAMASICT","BASTI");
+
+-- union does not show thw distint data 
+-- (union have rule to match the no. of column that search)
+-- (union have rule to  sequence should match)
+SELECT D_id,department from department 
+ union
+SELECT D_id,department from department_2;
+
+-- union all show all duplicate data also
+SELECT D_id,department from department 
+ union all
+SELECT D_id,department from department_2;
+
+
+SELECT * FROM department_2;
+
+
+
+
+
+
+
 SELECT * FROM employee;
 SELECT * FROM department;
- ALTER TABLE department change derpartment department varchar(100);
+ 
+ -- --------------------------------------------------------------------------------------
+ -- doubt
+SELECT * FROM employee e,department d
+where e.department=d.D_id 
+GROUP BY e.department
+having e.department="d1";
