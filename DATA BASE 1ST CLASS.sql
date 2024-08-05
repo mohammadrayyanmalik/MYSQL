@@ -826,15 +826,82 @@ SELECT D_id,department from department
  union all
 SELECT D_id,department from department_2;
 
+-- 05-08-2024-----------------------------------------------------------------------------------------------
+
+-- UNION 
+SELECT D_ID,department FROM department
+UNION 
+SELECT D_ID,department FROM department_2;
+
+-- fuller join (combination of both left and right)
+SELECT * FROM EMPLOYEE e 
+left join department d 
+ON E.department=d.d_id
+union
+SELECT * FROM EMPLOYEE e 
+right join department d 
+ON E.department=d.d_id;
+
+
+SELECT * FROM employee e 
+right join department d
+ON E.department=D.D_ID
+UNION
+SELECT * FROM employee e 
+LEFT join department d
+ON E.department=D.D_ID;
+
+
+
+-- CROSS JOIN(define the multiplicatin with second table
+-- CROSS JOIN ALWAYS WANTS = SO IT IS CALLED AS EQUI JOIN
+-- EQUI JOIN
+SELECT * FROM employee e,department d
+where e.department=d.D_id;
+
+--  NON EQUI JOIN 
+
+SELECT * FROM EMPLOYEE E, department D 
+WHERE E.department=D.D_ID AND AGE>22;
+
+
+-- SUBQUERIES
+
+SELECT MIN(SALARY) FROM EMPLOYEE;
+SELECT * FROM EMPLOYEE WHERE SALARY=( SELECT MIN(SALARY) FROM EMPLOYEE);
+SELECT * FROM EMPLOYEE WHERE SALARY=(SELECT max(SALARY) FROM employee);
+select * from employee order by salary desc limit 1;
+select * from employee where salary<82000 order by salary desc limit 1;
+
+
+SELECT* from employee where salary<(select avg(salary) from employee);
+select * from employee where salary<(select max(salary) from employee) order by salary desc limit 1;
+
+select d_id from department where department="marketing";
+select * from employee where department=(select d_id from department where department="marketing");
+
+
+ alter table department add column city varchar(100);
+update department set city="mumbai" where d_id="d1";
+update department set city="chennai" where d_id="d2";
+update department set city="mumbai" where d_id="d3";
+update department set city="lucknow" where d_id="d4";
+
+select d_id from department where city="mumbai";
+select * from employee where department in (select d_id from department where city="mumbai");
+
+
+
+-- <13000 50000>   >all       70000      always check greater number in case of >all
+-- <13000 50000>   >any       70000      always check less number in case of >any
+-- <13000 50000>   <all       70000      always check less number in case of <all
+-- <13000 50000>   <all       70000      always check greater number in case of <any
+
+
+
+
 
 SELECT * FROM department_2;
-
-
-
-
-
-
-
 SELECT * FROM employee;
 SELECT * FROM department;
  
@@ -844,3 +911,8 @@ SELECT * FROM employee e,department d
 where e.department=d.D_id 
 GROUP BY e.department
 having e.department="d1";
+
+
+select * from department d 
+left join employee e 
+on d.d_id=e.department where d.department="marketing";
