@@ -905,14 +905,48 @@ SELECT * FROM department_2;
 SELECT * FROM employee;
 SELECT * FROM department;
  
- -- --------------------------------------------------------------------------------------
- -- doubt
-SELECT * FROM employee e,department d
-where e.department=d.D_id 
-GROUP BY e.department
-having e.department="d1";
+ -- 07-08-2024-- --------------------------------------------------------------------------------------
+ 
+ -- views 
+ -- to see a particular thing with out writting a query again
+ -- to hide peivary
+ 
+ --  IF VIEW QUERY INVOLVE IN 1 TABLE CALLED SIMPLE VIEW
+ -- IF VIEW QUERY INVOLVE MORE THAN 1 table CALLED COMPLEX VIEW
+ 
+ 
+ 
+ 
+ CREATE VIEW department_salary as
+SELECT department,sum(salary) FROM employee GROUP BY department;
+ 
+ select * from department_salary;
+ 
+ 
+ create view emp as
+ SELECT e_id,ename,city,department,age,joining_date from employee;
+ 
+ select * from emp;
+ 
+ CREATE VIEW JOIN_RIGHT AS
+ SELECT e.e_id,e.ename,e.city,e.department,e.age,e.joining_date from employee e 
+ LEFT JOIN DEPARTMENT d 
+ ON E.DEPARTMENT=D.D_ID;
+ 
+ 
+ DROP VIEW emp;
+ 
+ 
+ 
+SELECT * FROM department_2;
+SELECT * FROM employee;
+SELECT * FROM department;
+ 
 
 
-select * from department d 
-left join employee e 
-on d.d_id=e.department where d.department="marketing";
+
+
+
+
+
+
