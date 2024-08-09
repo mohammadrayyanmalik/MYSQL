@@ -944,9 +944,88 @@ SELECT * FROM department;
  
 
 
+-- 09-08-2024-------------------------------------------------------
+-- Delimiter it is used to change the end like; TO ANY SYMBOL
+delimiter @
+select * from employee@
+SELECT * FROM DEPARTMENT@
+-- -------------------------------------------------------------------------------------------------
+
+-- stored
+-- in out inout
+/*
+delimiter $
+create procedure procedure_name()
+begin 
 
 
 
 
+END$
+delimiter ;
+*/
 
+-- non parameterized BECAUSE () HAS NOTHING
+delimiter $
+ CREATE PROCEDURE getEmployee()
+ BEGIN
+	SELECT * FROM EMPLOYEE;
+ 
+ END$
+DELIMITER ;
+CALL GETEMPLOYEE;
+
+
+DELIMITER $
+CREATE PROCEDURE GETDEPARTMENT()
+BEGIN 
+ select * from department where d_id="d1";
+END$
+DELIMITER ;
+
+CALL GETDEPARTMENT;
+
+
+
+DELIMITER $
+CREATE PROCEDURE get_salary(in salary int)
+BEGIN 
+	SELECT count(*) FROM employee where employee.salary= salary;
+	
+END$
+delimiter ;
+
+call get_salary(82000);
+drop procedure get_salary;
+
+
+DELIMITER $
+CREATE PROCEDURE get_department(in department char(20) )
+BEGIN 
+	SELECT * FROM employee where employee.department= department;
+	
+END$
+delimiter ;
+call get_department("d2"); 
+-- arguments
+ call getemployee;
+ 
+ DELIMITER $
+CREATE PROCEDURE update_phoneno(in E_id char(20),in phone_no bigint )
+BEGIN 
+	update employee set employee.phone_no=phone_no where employee.e_id=e_id ;
+	
+END$
+delimiter ;
+
+call update_phoneno ("e1",21656);
+ drop procedure update_phoneno;
+ 
+desc employee;
+select * from employee;
+
+call getemployee	;
+-- -----------------------------------------------------------------
+ -- VARIABLE
+-- QUERY AND SYNTEX
 
