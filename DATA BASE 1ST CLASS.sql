@@ -952,15 +952,12 @@ SELECT * FROM DEPARTMENT@
 -- -------------------------------------------------------------------------------------------------
 
 -- stored
--- in out inout
+-- in, out, inout
 /*
 delimiter $
 create procedure procedure_name()
 begin 
-
-
-
-
+<query>
 END$
 delimiter ;
 */
@@ -1025,6 +1022,24 @@ desc employee;
 select * from employee;
 
 call getemployee	;
+delimiter $
+CREATE procedure getage(in age int )
+begin
+update employee set employee.age=age where e_id="e1";
+end$
+delimiter ;
+call getage (26);
+
+
+DROP PROCEDURE getage;
+
+DELIMITER $
+CREATE procedure GETEAGE()
+BEGIN
+	SELECT * FROM EMPLOYEE WHERE E_ID="E1";
+END$
+DELIMITER ;
+CALL GETEAGE;                                                                 
 -- -----------------------------------------------------------------
  -- VARIABLE
 -- QUERY AND SYNTEX
