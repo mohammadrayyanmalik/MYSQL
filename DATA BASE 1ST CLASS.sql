@@ -1040,7 +1040,63 @@ BEGIN
 END$
 DELIMITER ;
 CALL GETEAGE;                                                                 
--- -----------------------------------------------------------------
- -- VARIABLE
--- QUERY AND SYNTEX
+-- 12-08-2024--------------------------------------------------------------------------------
+-- VERIABLE
+SET @phone_no=123654;
+
+SELECT * FROM EMPLOYEE where phone_no<@phone_no;
+
+
+SET @SALARY=50000;
+SELECT * FROM EMPLOYEE WHERE SALARY<@SALARY;
+
+-- ----------------------------------------------------------------------------------------
+DELIMITER $
+CREATE PROCEDURE GETYEAR(IN e_id CHAR(4), OUT REG_YEAR INT)
+BEGIN
+SELECT YEAR (JOINING_DATE) INTO REG_YEAR FROM EMPLOYEE WHERE EMPLOYEE.E_ID=E_ID;
+END$
+DELIMITER ;
+DROP PROCEDURE GETYEAR;
+CALL GETYEAR("E2",@REG_YEAR);
+SELECT @REG_YEAR;
+SELECT * FROM EMPLOYEE WHERE YEAR(JOINING_DATE)=@REG_YEAR;
+
+
+-- - ----------------------------------------------------------------------------
+DELIMITER $
+
+CREATE PROCEDURE GET_AGE(IN E_ID CHAR (5),OUT REG_AGE INT)
+BEGIN 
+--    COLUNM NAME        VERIABLE     TABLE_NAME      COLUMN NAME= VERIABLE
+SELECT EMPLOYEE.AGE INTO REG_AGE FROM EMPLOYEE WHERE EMPLOYEE.E_ID=E_ID;
+END$
+DELIMITER ;
+ CALL GET_AGE ("E2",@REG_AGE);
+ SELECT @REG_AGE;
+select * from employee;
+UPDATE EMPLOYEE SET JOINING_DATE="2015-10-08" WHERE E_ID="E2";
+
+
+
+-- -------------------------------------------------------------
+DELIMITER $
+CREATE PROCEDURE GETYAR(IN e_id CHAR(4), OUT REG_YAR DATE)
+BEGIN
+          SELECT JOINING_DATE INTO REG_YAR FROM EMPLOYEE WHERE EMPLOYEE.E_ID=e_id;
+END$
+DELIMITER ;
+CALL GETYAR("E1",@REG_YAR);
+SELECT @REG_YAR;
+DROP procedure GETYAR;
+SELECT * FROM EMPLOYEE;
+
+SELECT JOINING_DATE FROM EMPLOYEE WHERE EMPLOYEE.E_ID="E1";
+-- ---------------------------------------------------------------
+-- HOME WORK 
+-- GETCOUNT("MUMBAI" @COUNTEMP)
+-- GETEMPDETIALS("D2")
+-- GETEMPLOYEE("A")
+-- GETEMPLOYEE COUNT("A",COUNTEMP)
+
 
