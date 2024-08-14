@@ -1092,6 +1092,92 @@ DROP procedure GETYAR;
 SELECT * FROM EMPLOYEE;
 
 SELECT JOINING_DATE FROM EMPLOYEE WHERE EMPLOYEE.E_ID="E1";
+
+
+-- 14-08-2024 ----------------------------------------------------------------------------------
+-- in out inout 
+
+delimiter $
+CREATE PROCEDURE update_AGE(in e_id char(10),inout age int)
+begin
+DECLARE OLD_AGE INT;
+select employee.salary INTO OLD_AGE from employee where employee.e_id=e_id;
+UPDATE employee SET employee.AGE=AGE where employee.e_id=e_id;
+SET AGE=OLD_AGE;
+end$
+DELIMITER ;
+DROP PROCEDURE UPDATE_SALARY;
+SET @AGE=50;
+CALL UPDATE_AGE ("E1",@AGE);
+SELECT @AGE;
+SELECT * FROM EMPLOYEE;
+
+
+-- SYNTEX
+/* DELIMITER $
+CREATE FUNCTION fun_name(p1,p2,......)
+RETURN DATATYPE
+BEGIN
+// LOGIC
+RETURN VALUE
+END $
+DELIMITER ; */
+
+
+DELIMITER $
+CREATE FUNCTION addition(a int, b int)
+returns int
+begin
+return a+b;
+end$
+delimiter ;
+select addition (510,200);
+-- --------------------------------------------------------------------
+delimiter $
+CREATE FUNCTION subs(a int,b int)
+returns int 
+begin
+return a-b;
+end$
+delimiter ;
+select subs(222,22);
+
+-- ----------------------------------------------------------------------
+select concat(upper(substr("hello",1,1)),
+ lower(substr("hello",2)));
+
+delimiter $
+create function formatename(hello varchar(100))
+returns varchar (100)
+begin 
+ return  concat(upper(substr(hello,1,1)),lower(substr(hello,2)));
+end$
+delimiter ;
+select* from employee;
+select formatename(ename),formatename(city),addition(salary,10000) from employee;
+-- ----------------------------------------------------------
+
+DELIMITER $
+CREATE function grade(marks int)
+RETURNS CHAR (20)
+BEGIN
+DECLARE grade char(20);
+SET grade=case
+			WHEN marks BETWEEN 0 AND 40 THEN "C"
+            WHEN marks BETWEEN 41 AND 74 THEN "B"
+            WHEN marks BETWEEN 75 AND 100 THEN "A"
+            ELSE "INVALID SALARY"
+            END;
+            RETURN GRADE;
+END$
+DELIMITER ;
+SELECT GRADE(100);
+
+-- --------------------------------------------------------------------------
+
+
+
+
 -- ---------------------------------------------------------------
 -- HOME WORK 
 -- GETCOUNT("MUMBAI" @COUNTEMP)
