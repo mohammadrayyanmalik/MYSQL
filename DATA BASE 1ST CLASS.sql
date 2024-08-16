@@ -599,7 +599,7 @@ select floor(20000.155555);
 select round(sqrt(17),4);
 select sign(-40);
 select truncate(sqrt(53),3);
-select pow(50,2);
+select pow(50,2); 
 -- -----------------------------------------------------------
 -- practice 
 select ceil(avg(salary)) as average_salary from employee;
@@ -1173,11 +1173,97 @@ END$
 DELIMITER ;
 SELECT GRADE(100);
 
--- --------------------------------------------------------------------------
+-- 16-08-2024 --------------------------------------------------------------------------
+-- IF  syntex
+/* 
+IF condition THEN statement
+end IF;
+IF condition 
+THEN statement1
+ELSE STATEMENT2
+END IF */
+DELIMITER $
+ CREATE FUNCTION checkno(n int)
+ returns varchar(4)
+ begin
+	IF (n%2=0) THEN
+    RETURN "even";
+    ELSE 
+    return "odd";
+    end if;
+ end$
+delimiter ;
+select checkno(21);
 
+-- check age
+DELIMITER $
+CREATE FUNCTION CHECKAGE(A INT)
+RETURNS boolean
+BEGIN
+	IF  (A>18) THEN 
+    RETURN TRUE;
+    ELSE RETURN FALSE;
+    END IF;
+   
+END$
+DELIMITER ;
+DROP FUNCTION CHECKAGE;
+SELECT CHECKAGE(19);
+-- ----------------------------------------------------------------------------------
+-- ELSE IF 
+-- WE ARE WRITING THERE MULTPLE STATEMENT 
+-- SYNTEX OF IFELSE
+/*
+IF condition THEN statement1
+ELSE IF condition THEN statement2
+ELSE IF condition THEN statement3
+ 
+ ELSE STATEMENT IF ITS ALL NOT APPLLY
+ END IF;*/
+ 
+ -- 1. ENGLISH  2. HINDI   3. ARABIC
+ DELIMITER $
+CREATE FUNCTION selectlanguage(choice int)
+RETURNS VARCHAR(20)
+BEGIN 
+		IF (choice=1) then 
+        return "english";
+        ELSEIF (choice=2) then 
+        RETURN "arabic";
+        ELSEIF (choice=3) THEN
+        RETURN "HINDI";
+        
+        ELSE  RETURN "INVALID NO";
+        
+        END IF;
+END$ 
+ DELIMITER ;
+SELECT SELECTLANGUAGE(2);
 
-
-
+DELIMITER $
+ CREATE FUNCTION DAYS( CHOICE INT)
+ RETURNS VARCHAR(20)
+ BEGIN 
+	IF (choice=1) THEN 
+    RETURN "monday";
+    ELSEIF (choice=2) THEN 
+    RETURN "tuesday";
+    ELSEIF (choice=3) THEN 
+    RETURN "WEDNESDAY";
+ELSEIF (choice=4) THEN 
+    RETURN "THURSDAY";
+    ELSEIF (choice=5) THEN 
+    RETURN "FRIDAY";
+    ELSEIF (choice=6) THEN 
+    RETURN "SATURDAY";
+	ELSEIF (choice=7) THEN 
+    RETURN "SUNDAY";
+   
+   ELSE RETURN"INVALIDNO";
+    END IF;
+ END$
+DELIMITER ;
+SELECT DAYS(8);
 -- ---------------------------------------------------------------
 -- HOME WORK 
 -- GETCOUNT("MUMBAI" @COUNTEMP)
@@ -1186,4 +1272,4 @@ SELECT GRADE(100);
 -- GETEMPLOYEE COUNT("A",COUNTEMP)
 
 -- https://8weeksqlchallenge.com/case-study-1/
-
+-- bolion
