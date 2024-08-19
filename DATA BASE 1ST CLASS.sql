@@ -1303,17 +1303,41 @@ SELECT DAYS(1);
  DELIMITER ;
  CALL print1to5();
  drop procedure print1to5;
+ -- ----------------------------------------------------------
+ CREATE TABLE emp(
+ emp_id varchar(10)
+ );
+	
+ delimiter $
+ CREATE PROCEDURE LOOPEMP()
+ BEGIN
+	DECLARE i int;
+    SET i=1;
+    simloop:loop
+    IF i=11 THEN LEAVE simloop;
+    END IF;
+    INSERT INTO  EMP VALUES (concat("emp",i));
+     SET i=i+1;
+    END LOOP simloop;
+ END$
+ DELIMITER ;
+ call loopemp();
+ select * from emp;
+
+ -- ---------------------------------------------------------------------------
+ /* 
+ syntex of while loop
+  labelname: WHILE
+  condition DO
+  STATEMENT END WHILE LABENMAEE;
+
+ 
  
  
 
 
 
 -- ---------------------------------------------------------------
--- HOME WORK 
--- GETCOUNT("MUMBAI" @COUNTEMP)
--- GETEMPDETIALS("D2")
--- GETEMPLOYEE("A")
--- GETEMPLOYEE COUNT("A",COUNTEMP)
 
 -- https://8weeksqlchallenge.com/case-study-1/
--- bolion
+-- boleaon
