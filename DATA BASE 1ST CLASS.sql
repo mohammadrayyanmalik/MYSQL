@@ -1263,7 +1263,51 @@ ELSEIF (choice=4) THEN
     END IF;
  END$
 DELIMITER ;
-SELECT DAYS(8);
+SELECT DAYS(1);
+-- 19-08-2024 ------------------------------------------------------------------------------------
+/*
+ SYNTEX
+ LABELNAME: LOOP
+ IF CONITION THEN STATEMENT(LEAVE LABELNAME);
+ END IF;
+ END LOOP LABELNAME;
+ */
+ DELIMITER $
+ CREATE PROCEDURE loopexample()
+ BEGIN
+	DECLARE i int;
+    SET i=1;
+    simpleloop: LOOP
+    IF i=6 THEN LEAVE simpleloop;
+	END IF;
+    SELECT "Hello";
+    set i=i+1;
+    END LOOP SIMPLELOOP;
+ END$
+ DELIMITER ;
+ CALL loopexample();
+ 
+  DELIMITER $
+ CREATE PROCEDURE print1to5()
+ BEGIN
+	DECLARE i int;
+    SET i=1;
+    simpleloop: LOOP
+      
+    IF i=6 THEN LEAVE simpleloop;
+	END IF;
+    SELECT i;
+    set i=i+1;
+    END LOOP SIMPLELOOP;
+ END$
+ DELIMITER ;
+ CALL print1to5();
+ drop procedure print1to5;
+ 
+ 
+
+
+
 -- ---------------------------------------------------------------
 -- HOME WORK 
 -- GETCOUNT("MUMBAI" @COUNTEMP)
