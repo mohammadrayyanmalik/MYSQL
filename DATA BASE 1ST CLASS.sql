@@ -1371,7 +1371,8 @@ SELECT DAYS(1);
             END WHILE WHILELOOP;
   END$
 	DELIMITER ;
-
+    CALL WHILELOOPEXAMPLE();
+DROP PROCEDURE WHILELOOPEXAMPLE;
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
