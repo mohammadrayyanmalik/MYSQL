@@ -1092,6 +1092,18 @@ DROP procedure GETYAR;
 SELECT * FROM EMPLOYEE;
 
 SELECT JOINING_DATE FROM EMPLOYEE WHERE EMPLOYEE.E_ID="E1";
+-- ----------------------------------------------------
+	DELIMITER $
+ CREATE PROCEDURE GETEMP1( IN JOINING DATE)
+ BEGIN
+	SELECT EMPLOYEE.E_ID  FROM EMPLOYEE WHERE YEAR(JOINING_DATE)=YEAR(JOINING);  
+ 
+ END$
+ DELIMITER ;
+  DROP PROCEDURE GETEMP1;
+ CALL GETEMP1("2015-10-08");
+SELECT @E_ID;
+SELECT * FROM EMPLOYEE;
 
 
 -- 14-08-2024 ----------------------------------------------------------------------------------
@@ -1324,18 +1336,41 @@ SELECT DAYS(1);
  call loopemp();
  select * from emp;
 
- -- ---------------------------------------------------------------------------
+ -- 20-08-2024---------------------------------------------------------------------------
  /* 
  syntex of while loop
   labelname: WHILE
   condition DO
-  STATEMENT END WHILE LABENMAEE;
-
- 
- 
- 
-
-
+  //STATEMENT 
+  END WHILE LABENMAEE;*/
+  DELIMITER $
+  CREATE PROCEDURE WHILELOOPEXAMPLE()
+  BEGIN
+			DECLARE i int;
+            SET i=11;
+            WHILELOOP: WHILE 
+            I<=20 DO 
+            SELECT concat("HELLO",i) ;
+            SET I=I+1;
+            END WHILE WHILELOOP;
+  END$
+	DELIMITER ;
+    CALL WHILELOOPEXAMPLE();
+    
+    DROP PROCEDURE WHILELOOPEXAMPLE;
+ -- ------------------------------------------------------------------------------------
+	  DELIMITER $
+  CREATE PROCEDURE WHILELOOPEXAMPLE()
+  BEGIN
+			DECLARE i int;
+            SET i=0;
+            WHILELOOP: WHILE 
+            I<=50 DO 
+            SELECT concat("HELLO",i) ;
+            SET I=I+2;
+            END WHILE WHILELOOP;
+  END$
+	DELIMITER ;
 
 -- ---------------------------------------------------------------
 
