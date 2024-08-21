@@ -1366,13 +1366,45 @@ SELECT DAYS(1);
             SET i=0;
             WHILELOOP: WHILE 
             I<=50 DO 
+            if i%2=0 THEN 
             SELECT concat("HELLO",i) ;
-            SET I=I+2;
+            END IF;
+            SET I=I+1;
             END WHILE WHILELOOP;
   END$
 	DELIMITER ;
     CALL WHILELOOPEXAMPLE();
 DROP PROCEDURE WHILELOOPEXAMPLE;
+desc emp;
+-- --------------------------------------------------------------
+alter table emp modify emp_id char (10) not null; 
+insert into emp values (null);
+show tables;
+alter table emp add primary key (emp_id);
+-- ------------------------------------------------------
+-- exeption 
+-- IT DISTURB NORMAL FLOW OF CODE
+DELIMITER $
+CREATE PROCEDURE exceptionhand(in s_id INT)
+BEGIN
+		DECLARE continue HANDLER FOR 1048
+        BEGIN
+				SELECT "YOU CAN NOT PUT THE NULL VALUE";
+        END;
+        DECLARE continue HANDLER FOR 1062
+        BEGIN
+				SELECT "YOU CAN NOT PUT THE NULL VALUE";
+        END;
+		INSERT INTO EMP VALUES(S_ID);
+        SELECT "CODE AFTER INSERTION";
+END$
+DELIMITER ;
+CALL exceptionhand(100);
+DROP PROCEDURE exceptionhand;
+-- 21-08-2024--------------------------------------------------------------------
+
+
+
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
