@@ -1402,8 +1402,77 @@ DELIMITER ;
 CALL exceptionhand(100);
 DROP PROCEDURE exceptionhand;
 -- 21-08-2024--------------------------------------------------------------------
-
-
+--  from procedure we study advance sql
+--  cursor
+-- CURSOR ONE BY ONE AGAR KAM KARNA HAI TAB USE KARTE HAIN
+-- cursor IS A POINTER O ROW BY ROW POERFORM ACTION
+/* CURSOR STEPS AND SYNTEX
+1)  declare cursor
+DECLARE CURSOR_NAME CURSOR FOR SELECT QUERY
+DECLARE S CURSOR FRO SELECT ID FROM STUDENTS;
+2)  OPEN CURSOR
+OPEN CURSOR_NAME;
+OPEN S;
+3) FETCH CURSOR
+FETCH TAB TAK KAREN GE JAB TAK ROWS KHATAM NAHI HOTA
+	FETCH CURSOR_NAME INTO VARIABLE_LIST;
+    FETCH S INTO VARIABLE_LIST;
+4) CLOSE CURSOR
+		CLOSE CURSOR_NAME;
+        CLOSE S;*/
+        -- -----------------------------------------------------------------------------------------
+CREATE TABLE Students ( 
+    StudentID INT PRIMARY KEY, 
+    Name VARCHAR(255), 
+    DateOfBirth DATE, 
+    GradeLevel INT 
+); 
+INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES 
+    (1, 'Alice Johnson', '2005-03-15', 9), 
+    (2, 'Bob Smith', '2004-08-22', 10), 
+    (3, 'Charlie Brown', '2006-05-10', 8), 
+     (4, 'Van Johnson', '2005-03-15', 9), 
+    (5, 'Smith hen', '2004-08-22', 10), 
+    (6, ' Brown', '2006-05-10', 8); 
+    SELECT * FROM STUDENTS;
+    -- -----------------------------------------------------------------------------
+    SELECT StudentID,NAME FROM STUDENTS;
+    DELIMITER $
+    CREATE PROCEDURE CURSOREXAMPLE()
+    BEGIN 
+			declare s_id INT;
+            DECLARE s_name varchar(100);
+            declare n int;
+            
+           
+            
+            declare STUDENT_CURSOR CURSOR FOR
+            SELECT STUDENTID,NAME FROM STUDENTS;
+            
+             declare continue handler for 1329
+            begin 
+					set n=1;
+            end;
+            
+            OPEN STUDENT_CURSOR;
+	loopcursor:loop
+    FETCH STUDENT_CURSOR INTO S_ID,S_NAME;
+		if n=1 then
+            leave loopcursor;
+		end if;
+                   SELECT  S_ID,S_NAME;
+	end loop  loopcursor;
+			
+            select "hello";
+            
+            
+            CLOSE STUDENT_CURSOR;
+            
+    END$
+    DELIMITER ;
+    CALL  CURSOREXAMPLE();
+    DROP PROCEDURE  CURSOREXAMPLE;
+    
 
 -- ---------------------------------------------------------------
 
