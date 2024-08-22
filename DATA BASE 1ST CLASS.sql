@@ -1092,6 +1092,18 @@ DROP procedure GETYAR;
 SELECT * FROM EMPLOYEE;
 
 SELECT JOINING_DATE FROM EMPLOYEE WHERE EMPLOYEE.E_ID="E1";
+-- ----------------------------------------------------
+	DELIMITER $
+ CREATE PROCEDURE GETEMP1( IN JOINING DATE)
+ BEGIN
+	SELECT EMPLOYEE.E_ID  FROM EMPLOYEE WHERE YEAR(JOINING_DATE)=YEAR(JOINING);  
+ 
+ END$
+ DELIMITER ;
+  DROP PROCEDURE GETEMP1;
+ CALL GETEMP1("2015-10-08");
+SELECT @E_ID;
+SELECT * FROM EMPLOYEE;
 
 
 -- 14-08-2024 ----------------------------------------------------------------------------------
@@ -1324,18 +1336,197 @@ SELECT DAYS(1);
  call loopemp();
  select * from emp;
 
- -- ---------------------------------------------------------------------------
+ -- 20-08-2024---------------------------------------------------------------------------
  /* 
  syntex of while loop
   labelname: WHILE
   condition DO
-  STATEMENT END WHILE LABENMAEE;
+  //STATEMENT 
+  END WHILE LABENMAEE;*/
+  DELIMITER $
+  CREATE PROCEDURE WHILELOOPEXAMPLE()
+  BEGIN
+			DECLARE i int;
+            SET i=11;
+            WHILELOOP: WHILE 
+            I<=20 DO 
+            SELECT concat("HELLO",i) ;
+            SET I=I+1;
+            END WHILE WHILELOOP;
+  END$
+	DELIMITER ;
+    CALL WHILELOOPEXAMPLE();
+    
+    DROP PROCEDURE WHILELOOPEXAMPLE;
+ -- ------------------------------------------------------------------------------------
+	  DELIMITER $
+  CREATE PROCEDURE WHILELOOPEXAMPLE()
+  BEGIN
+			DECLARE i int;
+            SET i=0;
+            WHILELOOP: WHILE 
+            I<=50 DO 
+            if i%2=0 THEN 
+            SELECT concat("HELLO",i) ;
+            END IF;
+            SET I=I+1;
+            END WHILE WHILELOOP;
+  END$
+	DELIMITER ;
+    CALL WHILELOOPEXAMPLE();
+DROP PROCEDURE WHILELOOPEXAMPLE;
+desc emp;
+-- --------------------------------------------------------------
+alter table emp modify emp_id char (10) not null; 
+insert into emp values (null);
+show tables;
+alter table emp add primary key (emp_id);
+-- ------------------------------------------------------
+-- exeption 
+-- IT DISTURB NORMAL FLOW OF CODE
+DELIMITER $
+CREATE PROCEDURE exceptionhand(in s_id INT)
+BEGIN
+		DECLARE continue HANDLER FOR 1048
+        BEGIN
+				SELECT "YOU CAN NOT PUT THE NULL VALUE";
+        END;
+        DECLARE continue HANDLER FOR 1062
+        BEGIN
+				SELECT "YOU CAN NOT PUT THE NULL VALUE";
+        END;
+		INSERT INTO EMP VALUES(S_ID);
+        SELECT "CODE AFTER INSERTION";
+END$
+DELIMITER ;
+CALL exceptionhand(100);
+DROP PROCEDURE exceptionhand;
+-- 21-08-2024--------------------------------------------------------------------
+--  from procedure we study advance sql
+--  cursor
+-- CURSOR ONE BY ONE AGAR KAM KARNA HAI TAB USE KARTE HAIN
+-- cursor IS A POINTER O ROW BY ROW POERFORM ACTION
+/* CURSOR STEPS AND SYNTEX
+1)  declare cursor
+DECLARE CURSOR_NAME CURSOR FOR SELECT QUERY
+DECLARE S CURSOR FRO SELECT ID FROM STUDENTS;
+2)  OPEN CURSOR
+OPEN CURSOR_NAME;
+OPEN S;
+3) FETCH CURSOR
+FETCH TAB TAK KAREN GE JAB TAK ROWS KHATAM NAHI HOTA
+	FETCH CURSOR_NAME INTO VARIABLE_LIST;
+    FETCH S INTO VARIABLE_LIST;
+4) CLOSE CURSOR
+		CLOSE CURSOR_NAME;
+        CLOSE S;*/
+        -- -----------------------------------------------------------------------------------------
+CREATE TABLE Students ( 
+    StudentID INT PRIMARY KEY, 
+    Name VARCHAR(255), 
+    DateOfBirth DATE, 
+    GradeLevel INT 
+); 
+INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES 
+    (1, 'Alice Johnson', '2005-03-15', 9), 
+    (2, 'Bob Smith', '2004-08-22', 10), 
+    (3, 'Charlie Brown', '2006-05-10', 8), 
+     (4, 'Van Johnson', '2005-03-15', 9), 
+    (5, 'Smith hen', '2004-08-22', 10), 
+    (6, ' Brown', '2006-05-10', 8); 
+    SELECT * FROM STUDENTS;
+    -- -----------------------------------------------------------------------------
+    SELECT StudentID,NAME FROM STUDENTS;
+    DELIMITER $
+    CREATE PROCEDURE CURSOREXAMPLE()
+    BEGIN 
+			declare s_id INT;
+            DECLARE s_name varchar(100);
+            declare n int;
+            
+            declare STUDENT_CURSOR CURSOR FOR
+            SELECT STUDENTID,NAME FROM STUDENTS;
+            
+             declare continue handler for 1329
+            begin 
+					set n=1;
+            end;
+            
+            OPEN STUDENT_CURSOR;
+	loopcursor:loop
+    --                         variable list that declare above
+    FETCH STUDENT_CURSOR INTO S_ID,S_NAME;
+		if n=1 then
+            leave loopcursor;
+		end if;
+                   SELECT  S_ID,S_NAME;
+	end loop  loopcursor;
+			
+            select "hello";
+            
+            
+            CLOSE STUDENT_CURSOR;
+            
+    END$
+    DELIMITER ;
+    CALL  CURSOREXAMPLE();
+    DROP PROCEDURE  CURSOREXAMPLE;
+    -- 22-08-2024---------------------------------------------------------------------
+      select * from teachers;
+    select * from courses;
+    select name,courseName from courses
+    join teachers
+    using(teacherID);
+    
+    -- -----------------------------
+    create table teacher_courses_table(
+    t_id varchar(100),
+    c_name varchar(100)
+    );
 
- 
- 
- 
 
-
+DELIMITER $
+CREATE procedure INSERT_VALUE_WITH_CORSOR()
+BEGIN
+		DECLARE tname varchar(100);
+        declare cname varchar (100);
+        DECLARE n INT;
+        
+        DECLARE teacher_courses CURSOR FOR
+        SELECT  name,courseName from courses
+        join teachers
+    using(teacherID);
+    
+      DECLARE CONTINUE HANDLER FOR 1329 
+        BEGIN 
+				SET n=1;
+        END;
+    
+    OPEN teacher_courses;
+    
+    
+    teacher_cursor_loop:loop
+    FETCH teacher_courses INTO tname,cname;
+    IF N=1 THEN 
+    LEAVE teacher_cursor_loop;
+    END IF;
+     INSERT INTO teacher_courses_table VALUES(tname,cname);   
+       END LOOP  teacher_cursor_loop ;
+     CLOSE teacher_courses;
+END$
+DELIMITER ;
+CALL INSERT_VALUE_WITH_CORSOR();
+DROP PROCEDURE INSERT_VALUE_WITH_CORSOR;
+		SELECT * FROM  teacher_courses_table;
+   
+  TRUNCATE teacher_courses_table;
+    -- --------------------------------------
+CREATE TABLE copy as SELECT  name,courseName from courses
+        join teachers
+    using(teacherID);
+    desc copy;
+    select * from copy;
+    
 
 -- ---------------------------------------------------------------
 
