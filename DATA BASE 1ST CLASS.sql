@@ -1526,6 +1526,39 @@ CREATE TABLE copy as SELECT  name,courseName from courses
     using(teacherID);
     desc copy;
     select * from copy;
+    -- ----------------------------------------------------- cursor 
+DELIMITER $
+CREATE procedure insert_cursor()
+BEGIN
+	DECLARE CNAME VARCHAR(100);
+    DECLARE CSTATE VARCHAR(100);
+    declare n int;
+    
+		DECLARE EMPLOYEE_DEPARTMENT CURSOR FOR
+			SELECT e.e_id,d.department_name FROM employee e
+			join department d
+			on e.department_id=d.department_id;
+            
+            declare continue handler for 1329
+            begin
+				set n=1;
+            end;
+        
+	OPEN EMPLOYEE_DEPARTMENT;
+    
+    employee_department_loop: LOOP
+			FETCH  EMPLOYEE_DEPARTMENT INTO CNAME,CSTATE; 
+			IF N=1 THEN
+            leave employee_department_loop;
+            END IF;
+            insert into department_employee values (CNAME,CSTATE);
+    END LOOP  employee_department_loop;
+    CLOSE EMPLOYEE_DEPARTMENT;
+END$
+DELIMITER ;
+drop procedure insert_cursor;
+CALL insert_cursor();
+select * from DEPARTMENT_EMPLOYEE;
     
 
 -- ---------------------------------------------------------------
