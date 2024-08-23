@@ -1559,8 +1559,57 @@ DELIMITER ;
 drop procedure insert_cursor;
 CALL insert_cursor();
 select * from DEPARTMENT_EMPLOYEE;
-    
+    -- 23-08-2024------------------------------------------------------
 
+    -- tirgger
+    /*
+    events/ keywords Of trigger
+    INSERT  		NEW
+    UPDATE			NEW 		OLD
+    DELETE			OLD
+    */
+    /*
+    trigger always work automatic it does not need call syntex but procedure need to call him self
+    trigger update autimatic 
+    SYNTEX
+    DELIMITER $
+    CRREAT TRIGGER  trigger_name
+    BEFORE| AFTER (ANY ONE FROM BOTH)
+    INSERT| UPDATE| DELETE
+    ON TABLE NAME FOR EACH ROW
+    BEGIN 
+    
+    END$
+    DELIMITER ;
+    
+    
+    */
+	show tables;
+ 
+	CREATE TABLE EMP(
+    NAME VARCHAR(100),
+    working_hours int,
+    pay_per_hour int,
+    salary int 
+    );
+    drop table emp;
+    
+    --  trigger
+    insert into emp (name,working_hours,pay_per_hour) values ("Nisha",10,1000);
+    
+    DELIMITER $
+	CREATE TRIGGER before_insert_emp
+	BEFORE INSERT
+	ON EMP FOR EACH ROW 
+            
+	BEGIN
+			SET NEW.SALARY=NEW.WORKING_HOURS*NEW.PAY_PER_HOUR;
+	END$
+    DELIMITER ;
+    insert into emp (name,working_hours,pay_per_hour) values ("Riya",29,850);
+    insert into emp (name,working_hours,pay_per_hour) values ("payal",2,8500);
+    SELECT * FROM EMP;
+    
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
