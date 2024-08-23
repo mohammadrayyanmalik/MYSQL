@@ -1444,8 +1444,11 @@ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES
             DECLARE s_name varchar(100);
             declare n int;
             
+<<<<<<< HEAD
            
             
+=======
+>>>>>>> 8fd8fbd1437ded0232dd041b9c091d141abebd48
             declare STUDENT_CURSOR CURSOR FOR
             SELECT STUDENTID,NAME FROM STUDENTS;
             
@@ -1456,6 +1459,10 @@ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES
             
             OPEN STUDENT_CURSOR;
 	loopcursor:loop
+<<<<<<< HEAD
+=======
+    --                         variable list that declare above
+>>>>>>> 8fd8fbd1437ded0232dd041b9c091d141abebd48
     FETCH STUDENT_CURSOR INTO S_ID,S_NAME;
 		if n=1 then
             leave loopcursor;
@@ -1472,8 +1479,209 @@ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES
     DELIMITER ;
     CALL  CURSOREXAMPLE();
     DROP PROCEDURE  CURSOREXAMPLE;
+<<<<<<< HEAD
     
 
+=======
+    -- 22-08-2024---------------------------------------------------------------------
+      select * from teachers;
+    select * from courses;
+    select name,courseName from courses
+    join teachers
+    using(teacherID);
+    
+    -- -----------------------------
+    create table teacher_courses_table(
+    t_id varchar(100),
+    c_name varchar(100)
+    );
+
+
+DELIMITER $
+CREATE procedure INSERT_VALUE_WITH_CORSOR()
+BEGIN
+		DECLARE tname varchar(100);
+        declare cname varchar (100);
+        DECLARE n INT;
+        
+        DECLARE teacher_courses CURSOR FOR
+        SELECT  name,courseName from courses
+        join teachers
+    using(teacherID);
+    
+      DECLARE CONTINUE HANDLER FOR 1329 
+        BEGIN 
+				SET n=1;
+        END;
+    
+    OPEN teacher_courses;
+    
+    
+    teacher_cursor_loop:loop
+    FETCH teacher_courses INTO tname,cname;
+    IF N=1 THEN 
+    LEAVE teacher_cursor_loop;
+    END IF;
+     INSERT INTO teacher_courses_table VALUES(tname,cname);   
+       END LOOP  teacher_cursor_loop ;
+     CLOSE teacher_courses;
+END$
+DELIMITER ;
+CALL INSERT_VALUE_WITH_CORSOR();
+DROP PROCEDURE INSERT_VALUE_WITH_CORSOR;
+		SELECT * FROM  teacher_courses_table;
+   
+  TRUNCATE teacher_courses_table;
+    -- --------------------------------------
+CREATE TABLE copy as SELECT  name,courseName from courses
+        join teachers
+    using(teacherID);
+    desc copy;
+    select * from copy;
+    -- ----------------------------------------------------- cursor 
+DELIMITER $
+CREATE procedure insert_cursor()
+BEGIN
+	DECLARE CNAME VARCHAR(100);
+    DECLARE CSTATE VARCHAR(100);
+    declare n int;
+    
+		DECLARE EMPLOYEE_DEPARTMENT CURSOR FOR
+			SELECT e.e_id,d.department_name FROM employee e
+			join department d
+			on e.department_id=d.department_id;
+            
+            declare continue handler for 1329
+            begin
+				set n=1;
+            end;
+        
+	OPEN EMPLOYEE_DEPARTMENT;
+    
+    employee_department_loop: LOOP
+			FETCH  EMPLOYEE_DEPARTMENT INTO CNAME,CSTATE; 
+			IF N=1 THEN
+            leave employee_department_loop;
+            END IF;
+            insert into department_employee values (CNAME,CSTATE);
+    END LOOP  employee_department_loop;
+    CLOSE EMPLOYEE_DEPARTMENT;
+END$
+DELIMITER ;
+drop procedure insert_cursor;
+CALL insert_cursor();
+select * from DEPARTMENT_EMPLOYEE;
+    -- 23-08-2024------------------------------------------------------
+
+    -- tirgger
+    /*
+    events/ keywords Of trigger
+    INSERT  		NEW
+    UPDATE			NEW 		OLD
+    DELETE			OLD
+    */
+    /*
+    trigger always work automatic it does not need call syntex but procedure need to call him self
+    trigger update autimatic 
+    SYNTEX
+    DELIMITER $
+    CRREAT TRIGGER  trigger_name
+    BEFORE| AFTER (ANY ONE FROM BOTH)
+    INSERT| UPDATE| DELETE
+    ON TABLE NAME FOR EACH ROW
+    BEGIN 
+    
+    END$
+    DELIMITER ;
+    
+    
+    */
+	show tables;
+ 
+	CREATE TABLE EMP(
+    NAME VARCHAR(100),
+    working_hours int,
+    pay_per_hour int,
+    salary int 
+    );
+    drop table emp;
+    
+    --  trigger
+    insert into emp (name,working_hours,pay_per_hour) values ("Nisha",10,1000);
+    
+    DELIMITER $
+	CREATE TRIGGER before_insert_emp
+	BEFORE INSERT
+	ON EMP FOR EACH ROW 
+            
+	BEGIN
+			SET NEW.SALARY=NEW.WORKING_HOURS*NEW.PAY_PER_HOUR;
+	END$
+    DELIMITER ;
+    
+    
+    insert into emp (name,working_hours,pay_per_hour) values ("Riya",29,850);
+    insert into emp (name,working_hours,pay_per_hour) values ("payal",2,8500);
+    SELECT * FROM EMP;
+UPDATE emp set working_hours=20 where name="riya";
+    
+    -- -------------------------------------------------------------
+    -- update.NEW
+    delimiter $
+     CREATE TRIGGER before_update_emp
+     BEFORE UPDATE
+     ON EMP FOR EACH ROW
+     BEGIN
+			SET NEW.SALARY=NEW.working_hours*NEW.pay_per_hour;
+     END$
+    DELIMITER ;
+    UPDATE emp set working_hours=20 where name="riya";
+    UPDATE emp set working_hours=12 where name="payal";
+    SELECT * FROM EMP;
+    -- ------------------------------------------------------------------
+    alter table emp add column previous_pay int;
+    -- UPDATE.OLD AND.NEW
+    DELIMITER $
+    CREATE TRIGGER before_update_employee_pay_per_hour
+    BEFORE UPDATE
+    ON emp for each row
+    BEGIN 
+			SET NEW.previous_pay=OLD.pay_per_hour;
+    END$
+    DELIMITER ;
+-- -------------------------------------------
+    alter table emp add column d_id varchar(10);
+    CREATE TABLE dep (
+    d_id varchar(10),
+    d_name char (10)
+    );
+    
+    -- -------------------------------------------------------------------------
+    
+    insert into dep values ("d1","marketing"),
+    ("d2","IT"),
+    ("d3","HR");
+    
+    
+    SELECT * FROM EMP;
+    INSERT INTO EMP (NAME,WORKING_HOURS,PAY_PER_HOUR) VALUES ("PRIYANKA",10,1000);
+      UPDATE emp set d_id="d2" where name="riya";
+    UPDATE emp set d_id="d1" where name="payal";
+    
+    -- ----------------------------------------------------
+    -- IF PAYPERHOUR=PREVIOUS THEN LEAVE
+    DELIMITER $
+    CREATE TRIGGER before_delete_dep
+    BEFORE DELETE
+    ON DEP FOR EACH ROW
+    BEGIN
+			UPDATE emp set d_id=null where d_id=OLD.d_id;
+    END$
+    DELIMITER ;
+    select * from dep;
+    select * from emp;
+    delete from dep where d_id="d1";
+>>>>>>> 8fd8fbd1437ded0232dd041b9c091d141abebd48
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
