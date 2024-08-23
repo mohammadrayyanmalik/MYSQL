@@ -1637,9 +1637,38 @@ UPDATE emp set working_hours=20 where name="riya";
 			SET NEW.previous_pay=OLD.pay_per_hour;
     END$
     DELIMITER ;
+-- -------------------------------------------
+    alter table emp add column d_id varchar(10);
+    CREATE TABLE dep (
+    d_id varchar(10),
+    d_name char (10)
+    );
+    
+    -- -------------------------------------------------------------------------
+    
+    insert into dep values ("d1","marketing"),
+    ("d2","IT"),
+    ("d3","HR");
     
     
+    SELECT * FROM EMP;
+    INSERT INTO EMP (NAME,WORKING_HOURS,PAY_PER_HOUR) VALUES ("PRIYANKA",10,1000);
+      UPDATE emp set d_id="d2" where name="riya";
+    UPDATE emp set d_id="d1" where name="payal";
     
+    -- ----------------------------------------------------
+    -- IF PAYPERHOUR=PREVIOUS THEN LEAVE
+    DELIMITER $
+    CREATE TRIGGER before_delete_dep
+    BEFORE DELETE
+    ON DEP FOR EACH ROW
+    BEGIN
+			UPDATE emp set d_id=null where d_id=OLD.d_id;
+    END$
+    DELIMITER ;
+    select * from dep;
+    select * from emp;
+    delete from dep where d_id="d1";
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
