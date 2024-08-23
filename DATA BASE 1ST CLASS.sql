@@ -1606,9 +1606,39 @@ select * from DEPARTMENT_EMPLOYEE;
 			SET NEW.SALARY=NEW.WORKING_HOURS*NEW.PAY_PER_HOUR;
 	END$
     DELIMITER ;
+    
+    
     insert into emp (name,working_hours,pay_per_hour) values ("Riya",29,850);
     insert into emp (name,working_hours,pay_per_hour) values ("payal",2,8500);
     SELECT * FROM EMP;
+UPDATE emp set working_hours=20 where name="riya";
+    
+    -- -------------------------------------------------------------
+    -- update.NEW
+    delimiter $
+     CREATE TRIGGER before_update_emp
+     BEFORE UPDATE
+     ON EMP FOR EACH ROW
+     BEGIN
+			SET NEW.SALARY=NEW.working_hours*NEW.pay_per_hour;
+     END$
+    DELIMITER ;
+    UPDATE emp set working_hours=20 where name="riya";
+    UPDATE emp set working_hours=12 where name="payal";
+    SELECT * FROM EMP;
+    -- ------------------------------------------------------------------
+    alter table emp add column previous_pay int;
+    -- UPDATE.OLD AND.NEW
+    DELIMITER $
+    CREATE TRIGGER before_update_employee_pay_per_hour
+    BEFORE UPDATE
+    ON emp for each row
+    BEGIN 
+			SET NEW.previous_pay=OLD.pay_per_hour;
+    END$
+    DELIMITER ;
+    
+    
     
 -- ---------------------------------------------------------------
 
