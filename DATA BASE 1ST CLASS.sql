@@ -1586,7 +1586,7 @@ select * from DEPARTMENT_EMPLOYEE;
     */
 	show tables;
  
-	CREATE TABLE EMP(
+	CREATE TABLE EMP1(
     NAME VARCHAR(100),
     working_hours int,
     pay_per_hour int,
@@ -1595,7 +1595,7 @@ select * from DEPARTMENT_EMPLOYEE;
     drop table emp;
     
     --  trigger
-    insert into emp (name,working_hours,pay_per_hour) values ("Nisha",10,1000);
+    insert into emp1 (name,working_hours,pay_per_hour) values ("Nisha",10,1000);
     
     DELIMITER $
 	CREATE TRIGGER before_insert_emp
@@ -1669,6 +1669,25 @@ UPDATE emp set working_hours=20 where name="riya";
     select * from dep;
     select * from emp;
     delete from dep where d_id="d1";
+    -- 26-08-2024 -----------------------------------------------------------
+    
+    -- index 
+    /* 
+    index is used to speed up the retrival data only
+    index default applied on keys like primary key,foreign key,unique key
+	YOU CAN ALSO PUT THE INDEX ON OTHER THAN KEY LIKE AGE ,CONTACT..........
+    */
+-- syntex of index
+-- CREATE INDEX INDEX_NAME ON TABLE-NAME(COLUMN_NAME);
+SHOW INDEXES FROM employee;
+SELECT * from employee;
+
+CREATE INDEX nmae_index ON employee(age);
+SHOW TABLES;
+SELECT * from emp;
+SHOW INDEXES FROM EMP;
+select * from emp where salary=17000;
+CREATE INDEX AGE_INDEX ON EMP (salary,d_id);
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
