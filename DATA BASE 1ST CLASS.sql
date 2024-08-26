@@ -1688,8 +1688,21 @@ SELECT * from emp;
 SHOW INDEXES FROM EMP;
 select * from emp where salary=17000;
 CREATE INDEX salary_INDEX ON EMP (salary,d_id);
-alter table emp drop index salary_index;
+alter table emp drop index salary_index
 -- ---------------------------------------------------------------
+-- Normalixation
+-- 1nf rule: use can not putt the comma
+-- 2NF rule: first your table should in 1NF
+/*TABLE IS NOT IN 1NF
 
+ID 		NAME	PHONENO
+101		ANKITA	1111,12222
+102     RIYA    2222,22222
+
+NOW TABLE IS IN 1NF 
+ID 		NAME 		phaoneno
+101		ankita		11111
+101		ankita 		12222
+*/
 -- https://8weeksqlchallenge.com/case-study-1/
 -- boleaon
