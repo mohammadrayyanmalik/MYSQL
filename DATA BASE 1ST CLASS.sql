@@ -1704,5 +1704,36 @@ ID 		NAME 		phaoneno
 101		ankita		11111
 101		ankita 		12222
 */
+
+/*
+2NF RULE TABLE SHOULD BE IN 1NF
+
+IT IS NOT IN 2NF
+ID      NAME	PHONENO		COURSES			HOBBIES
+101		ankita	11111		JAVA			DANACING
+101		ankita 	12222		PYTHON			DRAWING
+102		NISHA	22222		SQL				reading
+102		nisha	11122		wd				singing
+
+
+it is in 2nf 
+ID      NAME	PHONENO			
+101		ankita	11111			c1
+101		ankita 	12222			c2
+102		NISHA	22222			c1
+102		nisha	11122			c3
+
+courses
+c_id		c_name
+c1			wd
+c2			sql		
+c3			java
+*/
+
+-- 3NF (NOrmal form)
+
+
+
+
 -- https://8weeksqlchallenge.com/case-study-1/
 -- boleaon
