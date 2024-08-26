@@ -1688,7 +1688,7 @@ SELECT * from emp;
 SHOW INDEXES FROM EMP;
 select * from emp where salary=17000;
 CREATE INDEX salary_INDEX ON EMP (salary,d_id);
-alter table emp drop index salary_index
+alter table emp drop index salary_index;
 -- ---------------------------------------------------------------
 -- Normalixation
 -- 1nf rule: use can not putt the comma
@@ -1732,8 +1732,39 @@ c3			java
 
 -- 3NF (NOrmal form)
 
+--  class work
+-- procedure
+SELECT * FROM EMPLOYEE;
+DELIMITER $
+CREATE PROCEDURE get_salary (in e_id char(10),inout salary int)
+BEGIN 
+	DECLARE old_salary INT;
+    SELECT employee.salary into old_salary from employee where employee.E_id=e_id;
+	UPDATE employee set employee.salary=salary where employee.E_id=e_id;
+    set salary=old_salary;
+END$
+DELIMITER ;
+drop procedure get_salary;
+set @salary=22222;
+call get_salary("e1",@salary);
+select @salary;
+select * from employee;
+-- -------------------------------------------------------------------
 
-
+delimiter $
+CREATE PROCEDURE update_AGE(in e_id char(10),inout age int)
+begin
+DECLARE OLD_AGE INT;
+select employee.salary INTO OLD_AGE from employee where employee.e_id=e_id;
+UPDATE employee SET employee.AGE=AGE where employee.e_id=e_id;
+SET AGE=OLD_AGE;
+end$
+DELIMITER ;
+DROP PROCEDURE UPDATE_age;
+SET @AGE=50;
+CALL UPDATE_AGE ("E1",@AGE);
+SELECT @AGE;
+SELECT * FROM EMPLOYEE;
 
 -- https://8weeksqlchallenge.com/case-study-1/
 -- boleaon
