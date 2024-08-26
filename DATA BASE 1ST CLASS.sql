@@ -1444,6 +1444,11 @@ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES
             DECLARE s_name varchar(100);
             declare n int;
             
+<<<<<<< HEAD
+           
+            
+=======
+>>>>>>> 8fd8fbd1437ded0232dd041b9c091d141abebd48
             declare STUDENT_CURSOR CURSOR FOR
             SELECT STUDENTID,NAME FROM STUDENTS;
             
@@ -1454,7 +1459,10 @@ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES
             
             OPEN STUDENT_CURSOR;
 	loopcursor:loop
+<<<<<<< HEAD
+=======
     --                         variable list that declare above
+>>>>>>> 8fd8fbd1437ded0232dd041b9c091d141abebd48
     FETCH STUDENT_CURSOR INTO S_ID,S_NAME;
 		if n=1 then
             leave loopcursor;
@@ -1471,6 +1479,10 @@ INSERT INTO Students (StudentID, Name, DateOfBirth, GradeLevel) VALUES
     DELIMITER ;
     CALL  CURSOREXAMPLE();
     DROP PROCEDURE  CURSOREXAMPLE;
+<<<<<<< HEAD
+    
+
+=======
     -- 22-08-2024---------------------------------------------------------------------
       select * from teachers;
     select * from courses;
@@ -1669,6 +1681,7 @@ UPDATE emp set working_hours=20 where name="riya";
     select * from dep;
     select * from emp;
     delete from dep where d_id="d1";
+<<<<<<< HEAD
     -- 26-08-2024 -----------------------------------------------------------
     
     -- index 
@@ -1688,6 +1701,9 @@ SELECT * from emp;
 SHOW INDEXES FROM EMP;
 select * from emp where salary=17000;
 CREATE INDEX AGE_INDEX ON EMP (salary,d_id);
+=======
+>>>>>>> 8fd8fbd1437ded0232dd041b9c091d141abebd48
+>>>>>>> 2bc9cb1108d13ed1565b351e3565a2c6873e30de
 -- ---------------------------------------------------------------
 
 -- https://8weeksqlchallenge.com/case-study-1/
